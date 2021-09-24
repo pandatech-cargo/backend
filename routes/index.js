@@ -9,9 +9,9 @@ const trucksRouter = require("./trucks");
 router.get("/", (req, res) => {
   res.send("Hello World!");
 });
-router.get("/signed-url", UploadController.getSignedUrl);
 router.use('/drivers', driversRouter)
 router.use("/trucks", trucksRouter);
+router.post("/signed-url", UploadController.getSignedUrl);
 router.get('/cities', CityController.getCity)
 
 module.exports = router;
