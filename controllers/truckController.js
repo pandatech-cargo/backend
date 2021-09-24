@@ -1,5 +1,6 @@
 const { Op } = require("sequelize");
 const { Truck } = require("../models");
+const { NotFoundError } = require("../helpers");
 
 class Controller {
   static async create(req, res, next) {
@@ -7,7 +8,7 @@ class Controller {
       const truck = await Truck.create(req.body);
       res.status(201).json(truck);
     } catch (error) {
-      res.status(500).json({ message: "internal server error" });
+      next(error);
     }
   }
 
@@ -70,7 +71,22 @@ class Controller {
         data: rows,
       });
     } catch (error) {
-      res.status(500).json({ message: "internal server error" });
+      next(error);
+    }
+  }
+
+  static async findById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const truck = await Truck.findByPk(id);
+
+      if (!truck) {
+        throw new NotFoundError("Truck not found");
+      }
+
+      res.status(200).json(truck);
+    } catch (error) {
+      next(error);
     }
   }
 }
