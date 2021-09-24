@@ -44,7 +44,7 @@ class Controller {
           ...params,
           where: {
             ...params.where,
-            truck_type: truckType,
+            truck_type: truckType.substring(1).slice(0, -1).split(", "),
           },
         };
       }
@@ -66,7 +66,7 @@ class Controller {
       res.status(200).json({
         limit,
         current_page: page,
-        total_page: count,
+        total_page: Math.ceil(count / limit),
         data: rows,
       });
     } catch (error) {
