@@ -109,6 +109,52 @@ class Controller {
       next(error);
     }
   }
+
+  static async activate(req, res, next) {
+    try {
+      const { id } = req.params;
+      const updatedTruck = await Truck.update(
+        { status: "active" },
+        {
+          where: {
+            id,
+          },
+          returning: true,
+        }
+      );
+
+      if (!updatedTruck[0]) {
+        throw new NotFoundError("Truck not found");
+      }
+
+      res.status(200).json({ message: "Truck has been activated" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deactivate(req, res, next) {
+    try {
+      const { id } = req.params;
+      const updatedTruck = await Truck.update(
+        { status: "inactive" },
+        {
+          where: {
+            id,
+          },
+          returning: true,
+        }
+      );
+
+      if (!updatedTruck[0]) {
+        throw new NotFoundError("Truck not found");
+      }
+
+      res.status(200).json({ message: "Truck has been deactivated" });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
