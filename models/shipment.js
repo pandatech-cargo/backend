@@ -32,12 +32,40 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Shipment.init({
-    origin: DataTypes.INTEGER,
-    destination: DataTypes.INTEGER,
+    origin: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Cities',
+        key: 'id'
+      }
+    },
+    destination: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Cities',
+        key: 'id'
+      }
+    },
     loading_date: DataTypes.DATE,
-    status: DataTypes.STRING,
-    truck_id: DataTypes.INTEGER,
-    driver_id: DataTypes.INTEGER
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'Assigned'
+    },
+    truck_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Trucks',
+        key: 'id'
+      }
+    },
+    driver_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Drivers',
+        key: 'id'
+      }
+    },
+    shipment_number: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Shipment',
