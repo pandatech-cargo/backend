@@ -103,7 +103,6 @@ class ShipmentService {
             return shipment
         } 
         catch (error) {
-            console.log(error);
             next(error)
         }
     }
