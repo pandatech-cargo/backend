@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class City extends Model {
     /**
@@ -22,16 +20,19 @@ module.exports = (sequelize, DataTypes) => {
         constraints: false
       })
     }
-  };
-  City.init({
-    province_id: DataTypes.INTEGER,
-    province: DataTypes.STRING,
-    type: DataTypes.STRING,
-    city_name: DataTypes.STRING,
-    postal_code: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'City',
-  });
+  }
+  City.init(
+    {
+      province_id: DataTypes.INTEGER,
+      province: DataTypes.STRING,
+      type: DataTypes.STRING,
+      city_name: DataTypes.STRING,
+      postal_code: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "City",
+    }
+  );
   return City;
 };

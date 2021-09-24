@@ -1,19 +1,21 @@
-if(process.env.NODE_ENV !== 'production'){
-    require('dotenv').config()
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
-const cors = require('cors');
-const route = require('./routes')
-const params = require('strong-params')
-const express = require('express')
 
-const app = express()
-app.use(cors())
-const port = 3000
+const express = require("express");
+const app = express();
+const port = 3000;
+const cors = require("cors");
+
+const route = require("./routes");
+const { errHandler } = require("./middlewares");
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(params.expressMiddleware())
-app.use(route)
+app.use("/", route);
+app.use(errHandler);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+  console.log(`Example app listening at http://localhost:${port}`);
+});
