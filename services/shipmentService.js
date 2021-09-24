@@ -26,6 +26,26 @@ class ShipmentService {
                 limit,
                 where,
                 order,
+                include: [
+                    {
+                        model:Truck,
+                        attibutes: ['id', 'license_number']
+                    },
+                    {
+                        model: Driver,
+                        attibutes: ['id', 'name']
+                    },
+                    {
+                        model: City,
+                        as: 'city_origin', 
+                        attibutes: ['id', 'type', 'city_name']
+                    },
+                    {
+                        model: City,
+                        as: 'city_destination', 
+                        attibutes: ['id', 'type', 'city_name']
+                    },                    
+                ]
             })
             return shipments
         } 
@@ -37,12 +57,32 @@ class ShipmentService {
     static getDetailShipment = async (param, next) => {
         try{
             const shipment  = await Shipment.findOne({
-                where: { id: param }
+                where: { id: param },
+                include: [
+                    {
+                        model:Truck,
+                        attibutes: ['id', 'license_number']
+                    },
+                    {
+                        model: Driver,
+                        attibutes: ['id', 'name']
+                    },
+                    {
+                        model: City,
+                        as: 'city_origin', 
+                        attibutes: ['id', 'type', 'city_name']
+                    },
+                    {
+                        model: City,
+                        as: 'city_destination', 
+                        attibutes: ['id', 'type', 'city_name']
+                    },                    
+                ]
             })
             if(shipment)
                 return shipment
             else{
-                throw({name: 'NOT_FOUND', message: 'shipment not found'})
+                throw({statusCode: 404, message: 'shipment not found'})
             }
         } 
         catch (error) {
@@ -82,7 +122,7 @@ class ShipmentService {
                 await shipment.save()
             }
             else {
-                throw({name: 'NOT_FOUND', message: 'shipment not found'})
+                throw({statusCode: 404, message: 'shipment not found'})
             }
             return shipment
         }

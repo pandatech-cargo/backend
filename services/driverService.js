@@ -38,7 +38,7 @@ class DriverService {
             if(driver)
                 return driver
             else{
-                throw({name: 'NOT_FOUND', message: 'driver not found'})
+                throw({statusCode: 404, message: 'driver not found'})
             }
         } 
         catch (error) {
@@ -71,7 +71,7 @@ class DriverService {
                 await driver.save()
             }
             else {
-                throw({name: 'NOT_FOUND', message: 'driver not found'})
+                throw({statusCode: 404, message: 'driver not found'})
             }
             return driver
         }
