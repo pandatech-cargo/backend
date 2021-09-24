@@ -11,7 +11,10 @@ class CityService {
                   }
             })
             let cities_name = cities.map(( city ) => {
-                return city.city_name
+                return {
+                    id: city.id,
+                    name: `${city.type} ${city.city_name}`
+                }
             })
             return cities_name
         } 

@@ -11,7 +11,6 @@ class DriverService {
             if (params.sortBy && params.sort)
                 order = [ [params.sortBy], [params.sort] ]
             let where = {}
-            console.log(limit, offset, order);
             if(params.name)
                 where['name'] = {
                     [Op.like]: `%${params.name}%`
@@ -69,8 +68,7 @@ class DriverService {
                 driver.lisence_url = lisence_url
                 driver.status = status
     
-                driver.save()
-                console.log(driver);
+                await driver.save()
             }
             else {
                 throw({name: 'NOT_FOUND', message: 'driver not found'})
