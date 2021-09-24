@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const { Driver } = require('../models')
 class DriverService {
     static getDrivers = async (params, next) => {
@@ -12,7 +13,9 @@ class DriverService {
             let where = {}
             console.log(limit, offset, order);
             if(params.name)
-                where['name'] = params.name
+                where['name'] = {
+                    [Op.like]: `%${params.name}%`
+                }
             if(params.status)
                 where['status'] = params.status
             const drivers  = await Driver.findAndCountAll({
