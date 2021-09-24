@@ -11,11 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Shipments, {
+      this.hasMany(models.Shipment, {
+        as: 'origin',
         foreignKey: 'origin',
         constraints: false
       })
-      this.hasMany(models.Shipments, {
+      this.hasMany(models.Shipment, {
+        as: 'destination',
         foreignKey: 'destination',
         constraints: false
       })

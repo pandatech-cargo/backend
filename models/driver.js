@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Shipments, {
+      this.hasMany(models.Shipment, {
         foreignKey: 'driver_id',
         constraints: false
       })
@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     phone_number: DataTypes.STRING,
     idcard_url: DataTypes.STRING,
-    license_url: DataTypes.STRING
+    license_url: DataTypes.STRING,
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'active'
+    }
   }, {
     sequelize,
     modelName: 'Driver',

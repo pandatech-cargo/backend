@@ -1,13 +1,17 @@
 if(process.env.NODE_ENV !== 'production'){
-  require('dotenv').config()
+    require('dotenv').config()
 }
-const express = require('express')
-const app = express()
-const port = 3000
-const route = require('./routes')
 const cors = require('cors');
+const route = require('./routes')
+const params = require('strong-params')
+const express = require('express')
 
+const app = express()
 app.use(cors())
+const port = 3000
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(params.expressMiddleware())
 app.use(route)
 
 app.listen(port, () => {
