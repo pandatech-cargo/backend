@@ -26,6 +26,7 @@ class Controller {
       let params = {
         limit,
         offset: (page - 1) * limit,
+        order: [["createdAt", "ASC"]],
         where: {
           license_number: {
             [Op.like]: `%${query}%`,
@@ -36,7 +37,7 @@ class Controller {
       if (sortBy) {
         params = {
           ...params,
-          order: [[sortBy, sort]],
+          order: [params.order, [[sortBy, sort]]],
         };
       }
 
