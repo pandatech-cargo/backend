@@ -92,8 +92,8 @@ class ShipmentService {
 
     static addShipment = async (params, next) => {
         try {
-            const { origin, destination, loading_date, truck_id, driver_id } = params
-            const shipment = await Shipment.create({ origin, destination, loading_date, truck_id, driver_id })
+            const { origin, destination } = params
+            const shipment = await Shipment.create({ origin, destination })
             
             let date = new Date()
             date = moment(date).format('YYMM')
@@ -103,6 +103,7 @@ class ShipmentService {
             return shipment
         } 
         catch (error) {
+            console.log(error);
             next(error)
         }
     }

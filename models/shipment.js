@@ -53,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     truck_id: {
       type: DataTypes.INTEGER,
+      defaultValue: null,
       references: {
         model: 'Trucks',
         key: 'id'
@@ -60,6 +61,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     driver_id: {
       type: DataTypes.INTEGER,
+      defaultValue: null,
       references: {
         model: 'Drivers',
         key: 'id'

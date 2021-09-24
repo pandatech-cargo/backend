@@ -6,8 +6,10 @@ module.exports = {
         data.totalPage = Math.ceil(data.count / data.limit);
         data.data = data.rows;
         data.data.map(( row )=>{
-            row.driver = row.Driver.name
-            row.truck = row.Truck.license_number
+            if(row.Driver)
+                row.driver = row.Driver.name
+            if(row.Truck)
+                row.truck = row.Truck.license_number
             row.origin = `${row.city_origin.type} ${row.city_origin.city_name}`
             row.destination = `${row.city_destination.type} ${row.city_destination.city_name}`
             delete row.Driver
@@ -21,8 +23,10 @@ module.exports = {
     getShipmentDetails(data) {
         data = JSON.parse(JSON.stringify(data))
         data.data = data.rows;
-            data.driver = data.Driver.name
-            data.truck = data.Truck.license_number
+            if(row.Driver)
+                row.driver = row.Driver.name
+            if(row.Truck)
+                row.truck = row.Truck.license_number
             data.origin = `${data.city_origin.type} ${data.city_origin.city_name}`
             data.destination = `${data.city_destination.type} ${data.city_destination.city_name}`
             delete data.Driver
