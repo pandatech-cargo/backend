@@ -12,10 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.City, {
+        as: 'city_origin',
         foreignKey: 'origin',
         constraints: false
       })
       this.belongsTo(models.City, {
+        as: 'city_destination',
         foreignKey: 'destination',
         constraints: false
       })

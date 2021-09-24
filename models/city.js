@@ -10,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.Shipment, {
-        foreignKey: "origin",
-        constraints: false,
-      });
+        as: 'origin',
+        foreignKey: 'origin',
+        constraints: false
+      })
       this.hasMany(models.Shipment, {
-        foreignKey: "destination",
-        constraints: false,
-      });
+        as: 'destination',
+        foreignKey: 'destination',
+        constraints: false
+      })
     }
   }
   City.init(

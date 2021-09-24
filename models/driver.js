@@ -10,22 +10,23 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.Shipment, {
-        foreignKey: "driver_id",
-        constraints: false,
-      });
+        foreignKey: 'driver_id',
+        constraints: false
+      })
     }
-  }
-  Driver.init(
-    {
-      name: DataTypes.STRING,
-      phone_number: DataTypes.STRING,
-      idcard_url: DataTypes.STRING,
-      license_url: DataTypes.STRING,
-    },
-    {
-      sequelize,
-      modelName: "Driver",
+  };
+  Driver.init({
+    name: DataTypes.STRING,
+    phone_number: DataTypes.STRING,
+    idcard_url: DataTypes.STRING,
+    license_url: DataTypes.STRING,
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'active'
     }
-  );
+  }, {
+    sequelize,
+    modelName: 'Driver',
+  });
   return Driver;
 };
