@@ -11,18 +11,18 @@ class Controller {
   static async getSignedUrl(req, res, next) {
     try {
       const { type, extension } = req.body;
-      let key = type + "/" + uuid() + "." + extension;
+      const key = `${type}/${uuid()}.${extension}`;
       const uploadUrl = await s3.getSignedUrl("putObject", {
         Bucket: process.env.S3_BUCKETNAME,
         Key: key,
-        Expires: process.env.SIGNED_URL_EXPIRE,
+        Expires: +process.env.SIGNED_URL_EXPIRE,
         ACL: "public-read",
         ContentType: "application/json",
       });
 
-      res.status(201).json({
+      res.status(200).json({
         uploadUrl,
-        objectUrl: process.env.S3_ENDPOINT + key,
+        objectUrl: `https://${process.env.S3_ENDPOINT}/${key}`,
       });
     } catch (error) {
       next(error);
