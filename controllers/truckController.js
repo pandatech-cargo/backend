@@ -89,6 +89,26 @@ class Controller {
       next(error);
     }
   }
+
+  static async update(req, res, next) {
+    try {
+      const { id } = req.params;
+      const [count, updatedTruck] = await Truck.update(req.body, {
+        where: {
+          id,
+        },
+        returning: true,
+      });
+
+      if (!count) {
+        throw new NotFoundError("Truck not found");
+      }
+
+      res.status(200).json(updatedTruck[0]);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
